@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
+
 namespace HSU.TS
 {
     public class Startup
@@ -25,11 +26,14 @@ namespace HSU.TS
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<MyDbContext>(options => options.UseInMemoryDatabase("MyDbContext"));
+
+            services.AddDbContext<MyDbContext>(options => options.UseInMemoryDatabase("LibraryContext"));
 
             services.AddTransient<IStudentRepository, StudentRepository>();
 
-            
+           // services.AddTransient<IAuthorRepository, AuthorRepository>();
+
+           // services.AddTransient<IBookRepository, BookRepository>();
 
             services.AddMvc();
         }
@@ -48,6 +52,7 @@ namespace HSU.TS
             }
 
             app.UseStaticFiles();
+            
 
             app.UseMvc(routes =>
             {
@@ -55,6 +60,7 @@ namespace HSU.TS
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+            DbInitializer.Seed(app);
         }
     }
 }

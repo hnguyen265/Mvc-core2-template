@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace HSU.TS.Data
 {
-    
-   public class MyDbContext : DbContext
+
+    public class MyDbContext : DbContext
     {
-        public MyDbContext(DbContextOptions<DbContext> options) : base(options)
+        public MyDbContext(DbContextOptions<MyDbContext> options) : base(options)
         {
 
         }

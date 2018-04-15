@@ -10,19 +10,13 @@ namespace HSU.TS.Data.Repository
 
     public class StudentRepository : Repository<Student>, IStudentRepository
     {
-        public StudentRepository(MyDbContext context) : base(context)
+        private readonly MyDbContext _dbContext;
+        public StudentRepository(MyDbContext context):base(context)
         {
+            _dbContext = context;
         }
 
-        public IEnumerable<Student> FindWithStudent(Func<Student, bool> predicate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Student> GetAllWithStudent()
-        {
-            throw new NotImplementedException();
-        }
+     
     }
 
 }
