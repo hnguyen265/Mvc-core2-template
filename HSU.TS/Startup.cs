@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HSU.TS.Data;
+using HSU.TS.Data.Interfaces;
+using HSU.TS.Data.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -21,6 +25,12 @@ namespace HSU.TS
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<MyDbContext>(options => options.UseInMemoryDatabase("MyDbContext"));
+
+            services.AddTransient<IStudentRepository, StudentRepository>();
+
+            
+
             services.AddMvc();
         }
 

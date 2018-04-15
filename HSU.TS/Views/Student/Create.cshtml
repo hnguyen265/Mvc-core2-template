@@ -1,0 +1,26 @@
+﻿
+@model Student
+
+<div class="row orderForm">
+    <form asp-controller="Student" asp-action="Create" method="post" class="form-horizontal" role="form">
+        <h3 class="col-md-offset-2">Create new student</h3>
+        <div class="form-group">
+            <label asp-for="FirstName" class="col-md-2 control-label"></label>
+            <div class="col-md-6">
+                <input asp-for="FirstName" class="form-control" placeholder="Enter student fist name" />
+                <span asp-validation-for="FirsName" class="text-danger"></span>
+            </div>
+            <label asp-for="LastName" class="col-md-2 control-label"></label>
+            <div class="col-md-6">
+                <input asp-for="LastName" class="form-control" placeholder="Enter student last name" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="btn-group col-md-offset-2 col-md-6">
+                <input class="btn btn-default" type="submit" value="Return" asp-controller="Student" asp-action="List" />
+                <input class="btn btn-success" type="submit" value="Create" />
+            </div>
+        </div>
+    </form>
+</div>
