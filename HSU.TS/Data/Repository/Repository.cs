@@ -10,13 +10,15 @@ namespace HSU.TS.Data.Repository
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        protected readonly MyDbContext _context;
-        protected DbSet<T> _dbSet;
+
+        internal DbSet<T> _dbSet;
+        internal MyDbContext _context;
+
 
         public Repository(MyDbContext context)
         {
             _context = context;
-            _dbSet = _context.Set<T>();
+            _dbSet = context.Set<T>();
         }
         protected void Save() => _context.SaveChanges();
 
@@ -28,13 +30,13 @@ namespace HSU.TS.Data.Repository
         public void Create(T entity)
         {
             _context.Add(entity);
-            Save();
+           // Save();
         }
 
         public void Remove(T entity)
         {
             _context.Remove(entity);
-            Save();
+          //  Save();
         }
 
         public IEnumerable<T> Find(Func<T, bool> predicate)
@@ -47,35 +49,38 @@ namespace HSU.TS.Data.Repository
             return _dbSet;
         }
 
-        public T GetById(int id)
+        public T GetById(long id)
         {
             return _dbSet.Find(id);
         }
 
         public void Update(T entity)
         {
-            _context.Entry(entity).State = EntityState.Modified;
-            Save();
+            var entry = _context.Entry(entity);
+            if (entry.State == EntityState.Detached)
+            {
+                _dbSet.Attach(entity);
+            }
+            entry.State = EntityState.Modified;
+          //  Save();
         }
 
         public void Add(T entity)
         {
             _context.Add(entity);
-            Save();
+            //Save();
         }
 
         public void AddRange(IEnumerable entities)
         {
             _context.AddRange(entities);
-            Save();
+          //  Save();
         }
 
         public void Remove(object Id)
-        {     
+        {
             this.Remove(_dbSet.Find(Id));
-            Save();
+          //  Save();
         }
     }
 }
-//http://www.dotnettricks.com/learn/mvc/implementing-repository-and-unit-of-work-patterns-with-mvc
-//http://www.c-sharp.vn/entity-framework/repository-va-unit-of-work-c36aeb

@@ -1,9 +1,7 @@
 ﻿using HSU.TS.Data.Model;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
+using System.Configuration;
 
 namespace HSU.TS.Data
 {
@@ -14,7 +12,9 @@ namespace HSU.TS.Data
         {
 
         }
+
+        
         public DbSet<Student> Students { get; set; }
-    
+       
     }
 }

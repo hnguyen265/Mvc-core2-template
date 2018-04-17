@@ -25,7 +25,7 @@ namespace HSU.TS.Data
                 var context = serviceScope.ServiceProvider.GetService<MyDbContext>();
 
                 // Add Customers
-                var justin = new Student { FirstName = "Justin Noon", LastName ="Sleep" };
+                var justin = new Student { FirstName = "Justin Noon", LastName ="Sleep", DateRegister = DateTime.Now };
                 var honda = new Student { FirstName = "Honda Noon", LastName = "CUP" };
 
                 context.Students.Add(justin);

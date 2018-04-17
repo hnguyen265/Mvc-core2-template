@@ -9,7 +9,7 @@ namespace HSU.TS.Data.Interfaces
     {
         IEnumerable<T> GetAll();
         IEnumerable<T> Find(Func<T, bool> predicate);
-        T GetById(int id);
+        T GetById(long id);
         void Add(T entity);
         void AddRange(IEnumerable entities);
         void Update(T entity);

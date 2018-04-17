@@ -10,13 +10,16 @@ namespace HSU.TS.Data.Repository
 
     public class StudentRepository : Repository<Student>, IStudentRepository
     {
-        private readonly MyDbContext _dbContext;
+        private readonly MyDbContext context;
         public StudentRepository(MyDbContext context):base(context)
         {
-            _dbContext = context;
+            this.context = context;
         }
 
-     
+        public IEnumerable<Student> GetStudentRegisterByDate(DateTime fromDateTime, DateTime toDateTime)
+        {
+           return context.Students.Where(x => x.DateRegister >= fromDateTime && x.DateRegister <= toDateTime).ToList<Student>();
+        }
     }
 
 }

@@ -7,7 +7,7 @@ namespace HSU.TS.Data.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
-       
+        IStudentRepository StudentRepository { get; }
         int SaveChanges();
     }
 }

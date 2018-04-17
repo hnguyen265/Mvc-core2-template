@@ -7,8 +7,9 @@
     <thead>
         <tr>
             <th>ID</th>
-            <th>Name</th>
-            <th>Borrowed books count</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Date Register</th>
             <th>Edit customer</th>
             <th>Delete customer</th>
         </tr>
@@ -16,12 +17,14 @@
     <tbody>
         @foreach (var std in Model)
         {
-            <tr>
-                <td>@std.Id</td>
-                <td>@std.FirstName</td>
-                <td><a class="btn btn-info" asp-area="" asp-controller="Student" asp-action="Update" asp-route-id="@std.Id">Edit</a></td>
-                <td><a class="btn btn-danger" asp-area="" asp-controller="Student" asp-action="Delete" asp-route-id="@std.Id">Delete</a></td>
-            </tr>
+        <tr>
+            <td>@std.Id</td>
+            <td>@std.FirstName</td>
+            <td>@std.LastName</td>
+            <td>@std.DateRegister</td>
+            <td><a class="btn btn-info" asp-area="" asp-controller="Student" asp-action="Update" asp-route-id="@std.Id">Edit</a></td>
+            <td><a class="btn btn-danger" asp-area="" asp-controller="Student" asp-action="Delete" asp-route-id="@std.Id">Delete</a></td>
+        </tr>
         }
     </tbody>
 </table>

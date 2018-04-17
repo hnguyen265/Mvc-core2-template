@@ -13,6 +13,9 @@ namespace HSU.TS.Data.Model
         public string FirstName { get; set; }
         [Required, MinLength(1), MaxLength(50)]
         public string LastName { get; set; }
+        public DateTime DateRegister { get; set; }
+        public DateTime LastDateUpdate { get; set; }
+
 
     }
 }

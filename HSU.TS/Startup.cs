@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HSU.TS.Data;
+using HSU.TS.Data.Configurations;
 using HSU.TS.Data.Interfaces;
 using HSU.TS.Data.Repository;
 using Microsoft.AspNetCore.Builder;
@@ -28,13 +29,11 @@ namespace HSU.TS
         {
 
             services.AddDbContext<MyDbContext>(options => options.UseInMemoryDatabase("LibraryContext"));
+            //services.AddDbContext<MyDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultDatabase")));
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
 
-            services.AddTransient<IStudentRepository, StudentRepository>();
-
-           // services.AddTransient<IAuthorRepository, AuthorRepository>();
-
-           // services.AddTransient<IBookRepository, BookRepository>();
-
+            // services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+            services.Configure<SessionConfig>(Configuration.GetSection("SessionConfig"));
             services.AddMvc();
         }
 
@@ -52,7 +51,7 @@ namespace HSU.TS
             }
 
             app.UseStaticFiles();
-            
+
 
             app.UseMvc(routes =>
             {
