@@ -10,6 +10,7 @@ using HSU.TS.Data.Model;
 
 namespace HSU.TS.Controllers
 {
+   
     public class PostsController : Controller
     {
         private readonly MyDbContext _context;

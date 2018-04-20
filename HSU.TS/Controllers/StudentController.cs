@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 
 namespace HSU.TS.Controllers
 {
+    [Route("[controller]")]
+   
     public class StudentController : Controller
     {
         private readonly IUnitOfWork uoW;
@@ -20,14 +22,55 @@ namespace HSU.TS.Controllers
             this.uoW = unitOfWork;
             SessionConfig = config.Value;
         }
-
-        [Route("Student")]
-        public IActionResult List()
+       
+        //[Route("Student")]
+        [HttpGet("")]
+        public async Task<IActionResult> List()
         {
             // return Content(SessionConfig.FirstMessage.Title);
-            var std = uoW.StudentRepository.GetAll();
+            var std = await uoW.StudentRepository.GetAllAsync();
             return View(std);
         }
+
+      [HttpGet("ListApi")]
+        public async Task<IActionResult> ListAPI()
+        {
+            // return Content(SessionConfig.FirstMessage.Title);
+            var std = await uoW.StudentRepository.GetAllAsync();
+            return new ObjectResult(std);
+        }
+
+        [HttpGet("Stuff")]
+        public IActionResult Post()
+        {
+            var item = uoW.StudentRepository.GetById(1);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            return new ObjectResult(item);
+        }
+
+        //[Route("Post")]
+        //public async Task<IActionResult> Index()
+        //{
+        //    return View(await _context.Post.ToListAsync());
+        //}
+
+
+        [HttpGet("{id}", Name = "GetStudent")]
+        public IActionResult GetById(long id)
+        {
+
+            var item = uoW.StudentRepository.GetById(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            return new ObjectResult(item);
+        }
+
+
         public IActionResult Create()
         {
             return View();
@@ -47,7 +90,7 @@ namespace HSU.TS.Controllers
         }
         public IActionResult Update(long id)
         {
-            var std = uoW.StudentRepository.GetById(id);
+            var std = uoW.StudentRepository.GetByIdAsync(id);
             return View(std);
         }
 
@@ -66,7 +109,7 @@ namespace HSU.TS.Controllers
         }
         public IActionResult Delete(long id)
         {
-            var std = uoW.StudentRepository.GetById(id);
+            var std = uoW.StudentRepository.GetByIdAsync(id);
 
             uoW.StudentRepository.Remove(std);
             uoW.SaveChanges();

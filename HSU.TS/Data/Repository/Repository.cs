@@ -20,7 +20,7 @@ namespace HSU.TS.Data.Repository
             _context = context;
             _dbSet = context.Set<T>();
         }
-        protected void Save() => _context.SaveChanges();
+       // protected void Save() => _context.SaveChanges();
 
         public int Count(Func<T, bool> predicate)
         {
@@ -46,13 +46,13 @@ namespace HSU.TS.Data.Repository
 
         public IEnumerable<T> GetAll()
         {
-            return _dbSet;
+            return _dbSet.ToList();
+        }
+        public async Task<IEnumerable<T>> GetAllAsync()
+        {
+            return await _dbSet.ToListAsync();
         }
 
-        public T GetById(long id)
-        {
-            return _dbSet.Find(id);
-        }
 
         public void Update(T entity)
         {
@@ -81,6 +81,15 @@ namespace HSU.TS.Data.Repository
         {
             this.Remove(_dbSet.Find(Id));
           //  Save();
+        }
+
+        public T GetById(long id)
+        {
+            return  _dbSet.Find(id);
+        }
+        public async Task<T> GetByIdAsync(long id)
+        {
+            return await _dbSet.FindAsync(id);
         }
     }
 }

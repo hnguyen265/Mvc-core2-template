@@ -30,7 +30,12 @@ namespace HSU.TS.Data
 
                 context.Students.Add(justin);
                 context.Students.Add(honda);
-              
+
+                var post1 = new Post { Title = "Fist post" };
+                var post2 = new Post { Title = "Second post" };
+
+                context.Post.Add(post1);
+                context.Post.Add(post2);
 
                 context.SaveChanges();
             }
